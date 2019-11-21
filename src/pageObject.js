@@ -25,8 +25,10 @@ module.exports = class PageObject {
       const elements = this.root[querySelectorAllRootMethod](selector);
 
       return elements.reduce(
-        (pageObjects, element, i) =>
-          new PageObjectClass(this.driver, () => elements[i]),
+        (pageObjects, element, i) => [
+          ...pageObjects,
+          new PageObjectClass(this.driver, () => elements[i])
+        ],
         []
       );
     };
