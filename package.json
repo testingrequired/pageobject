@@ -1,0 +1,12 @@
+{
+  "name": "@testingrequired/pageobject",
+  "version": "0.0.0",
+  "description": "A universal base page object",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Kylee Tilley <kylee@testingrequired.com>",
+  "license": "MIT"
+}
