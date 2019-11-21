@@ -27,18 +27,8 @@ describe("PageObject", () => {
   });
 
   describe("root", () => {
-    let root;
-
-    beforeEach(() => {
-      root = pageObject.root;
-    });
-
     it("should return getRoot result", () => {
-      expect(root).toBe(expectedRoot);
-    });
-
-    it("should call getRoot", () => {
-      expect(getRoot).toBeCalledTimes(1);
+      expect(pageObject.root).toBe(expectedRoot);
     });
   });
 
@@ -59,20 +49,8 @@ describe("PageObject", () => {
       });
 
       describe("root", () => {
-        let root;
-
-        beforeEach(() => {
-          root = result.root;
-        });
-
         it("should be expected result root", () => {
-          expect(root).toBe(expectedResultRoot);
-        });
-
-        it("should call root querySelectorMethod", () => {
-          expect(expectedRoot[querySelectorMethod]).toHaveBeenCalledWith(
-            expectedSelector
-          );
+          expect(result.root).toBe(expectedResultRoot);
         });
       });
     });
