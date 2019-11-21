@@ -1,8 +1,8 @@
 const PageObject = require("./pageObject");
 
 describe("PageObject", () => {
-  const querySelectorMethod = "querySelectorMethod";
-  const querySelectorAllMethod = "querySelectorAllMethod";
+  const querySelectorMethod = "rootQuerySelectorMethod";
+  const querySelectorAllMethod = "rootQuerySelectorAllMethod";
   const expectedSelector = "selector";
 
   let getRoot;
@@ -18,12 +18,10 @@ describe("PageObject", () => {
       [querySelectorAllMethod]: jest.fn(() => [expectedResultRoot])
     };
     getRoot = jest.fn(() => expectedRoot);
-    pageObject = new PageObject(
-      null,
-      getRoot,
-      querySelectorMethod,
-      querySelectorAllMethod
-    );
+    pageObject = new PageObject(null, getRoot, {
+      rootQuerySelectorMethod: querySelectorMethod,
+      rootQuerySelectorAllMethod: querySelectorAllMethod
+    });
   });
 
   describe("root", () => {

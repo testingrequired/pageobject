@@ -6,16 +6,16 @@ class PageObject {
    * Base page object implementation
    * @param {*} driver Webdriver instance
    * @param {() => any} root Function returning web element reference
-   * @param {string} querySelectorRootMethod Method name on web element for querying single elements
-   * @param {string} querySelectorAllRootMethod Method name on web element for querying multiple elements
+   * @param {string} rootQuerySelectorMethod Method name on web element for querying single elements
+   * @param {string} rootQuerySelectorAllMethod Method name on web element for querying multiple elements
    */
-  constructor(
-    driver,
-    root,
-    querySelectorRootMethod = "querySelector",
-    querySelectorAllRootMethod = "querySelectorAll"
-  ) {
+  constructor(driver, root, rootSelectorMethods = {}) {
     this.driver = driver;
+
+    const {
+      rootQuerySelectorMethod = "querySelector",
+      rootQuerySelectorAllMethod = "querySelectorAll"
+    } = rootSelectorMethods;
 
     Object.defineProperty(this, "root", {
       enumerable: true,
@@ -23,27 +23,33 @@ class PageObject {
     });
 
     this[querySelectorMethod] = (selector, PageObjectClass = PageObject) => {
-      return new PageObjectClass(this.driver, () =>
-        this.root[querySelectorRootMethod](selector)
+      return new PageObjectClass(
+        this.driver,
+        () => this.root[rootQuerySelectorMethod](selector),
+        rootSelectorMethods
       );
     };
 
     this[querySelectorAllMethod] = (selector, PageObjectClass = PageObject) => {
-      const elements = this.root[querySelectorAllRootMethod](selector);
+      const elements = this.root[rootQuerySelectorAllMethod](selector);
 
       return elements.reduce(
         (pageObjects, element, i) => [
           ...pageObjects,
-          new PageObjectClass(this.driver, () => elements[i])
+          new PageObjectClass(
+            this.driver,
+            () => elements[i],
+            rootSelectorMethods
+          )
         ],
         []
       );
     };
 
-    this[querySelectorRootMethod] = (...args) =>
+    this[rootQuerySelectorMethod] = (...args) =>
       this[querySelectorMethod](...args);
 
-    this[querySelectorAllRootMethod] = (...args) =>
+    this[rootQuerySelectorAllMethod] = (...args) =>
       this[querySelectorAllMethod](...args);
   }
 }
