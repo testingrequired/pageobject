@@ -1,7 +1,14 @@
 const querySelectorMethod = Symbol("querySelector");
 const querySelectorAllMethod = Symbol("querySelectorAll");
 
-module.exports = class PageObject {
+class PageObject {
+  /**
+   * Base page object implementation
+   * @param {*} driver Webdriver instance
+   * @param {() => any} root Function returning web element reference
+   * @param {string} querySelectorRootMethod Method name on web element for querying single elements
+   * @param {string} querySelectorAllRootMethod Method name on web element for querying multiple elements
+   */
   constructor(
     driver,
     root,
@@ -39,4 +46,6 @@ module.exports = class PageObject {
     this[querySelectorAllRootMethod] = (...args) =>
       this[querySelectorAllMethod](...args);
   }
-};
+}
+
+module.exports = PageObject;
