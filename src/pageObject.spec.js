@@ -54,6 +54,25 @@ describe("PageObject", () => {
         });
       });
     });
+
+    describe("when passed custom page object", () => {
+      class CustomPageObject {}
+
+      describe("returns", () => {
+        let result;
+
+        beforeEach(() => {
+          result = pageObject[querySelectorMethod](
+            expectedSelector,
+            CustomPageObject
+          );
+        });
+
+        it("should be an instance of custom page object", () => {
+          expect(result).toBeInstanceOf(CustomPageObject);
+        });
+      });
+    });
   });
 
   describe("querySelectorAllMethod", () => {
@@ -88,6 +107,25 @@ describe("PageObject", () => {
           it("should be expected result root", () => {
             expect(result.root).toBe(expectedResultRoot);
           });
+        });
+      });
+    });
+
+    describe("when passed custom page object", () => {
+      class CustomPageObject {}
+
+      describe("returns", () => {
+        let results;
+
+        beforeEach(() => {
+          results = pageObject[querySelectorAllMethod](
+            expectedSelector,
+            CustomPageObject
+          );
+        });
+
+        it("should be an instance of custom page object", () => {
+          expect(results[0]).toBeInstanceOf(CustomPageObject);
         });
       });
     });
