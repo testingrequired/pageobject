@@ -24,6 +24,20 @@ describe("PageObject", () => {
     });
   });
 
+  describe("default root method names", () => {
+    beforeEach(() => {
+      pageObject = new PageObject(null, getRoot);
+    });
+
+    it("should define querySelector", () => {
+      expect(pageObject.querySelector).toBeDefined();
+    });
+
+    it("should define querySelectorAll", () => {
+      expect(pageObject.querySelectorAll).toBeDefined();
+    });
+  });
+
   describe("root", () => {
     it("should return getRoot result", () => {
       expect(pageObject.root).toBe(expectedRoot);
