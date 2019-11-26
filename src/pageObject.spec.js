@@ -45,13 +45,13 @@ describe("PageObject", () => {
   });
 
   describe("querySelectorMethod", () => {
+    let result;
+
     it("should be defined", () => {
       expect(pageObject[querySelectorMethod]).toBeDefined();
     });
 
-    describe("returns", () => {
-      let result;
-
+    describe("result", () => {
       beforeEach(() => {
         result = pageObject[querySelectorMethod](expectedSelector);
       });
@@ -70,9 +70,7 @@ describe("PageObject", () => {
     describe("when passed custom page object", () => {
       class CustomPageObject {}
 
-      describe("returns", () => {
-        let result;
-
+      describe("result", () => {
         beforeEach(() => {
           result = pageObject[querySelectorMethod](
             expectedSelector,
@@ -92,14 +90,14 @@ describe("PageObject", () => {
       expect(pageObject[querySelectorAllMethod]).toBeDefined();
     });
 
-    describe("returns", () => {
+    describe("results", () => {
       let results;
 
       beforeEach(() => {
         results = pageObject[querySelectorAllMethod](expectedSelector);
       });
 
-      it("should be an array of results", () => {
+      it("should be an array", () => {
         expect(Array.isArray(results)).toBe(true);
         expect(results.length).toBe(1);
       });
@@ -126,7 +124,7 @@ describe("PageObject", () => {
     describe("when passed custom page object", () => {
       class CustomPageObject {}
 
-      describe("returns", () => {
+      describe("results", () => {
         let results;
 
         beforeEach(() => {
@@ -135,9 +133,16 @@ describe("PageObject", () => {
             CustomPageObject
           );
         });
+        describe("result", () => {
+          let result;
 
-        it("should be an instance of custom page object", () => {
-          expect(results[0]).toBeInstanceOf(CustomPageObject);
+          beforeEach(() => {
+            result = results[0];
+          });
+
+          it("should be an instance of custom page object", () => {
+            expect(result).toBeInstanceOf(CustomPageObject);
+          });
         });
       });
     });
