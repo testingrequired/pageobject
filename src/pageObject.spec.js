@@ -42,6 +42,24 @@ describe("PageObject", () => {
     it("should return getRoot result", () => {
       expect(pageObject.root).toBe(expectedRoot);
     });
+
+    describe("proxied calls", () => {
+      beforeEach(() => {
+        expectedRoot.rootOnly = jest.fn();
+      });
+
+      it("should call method on root", () => {
+        pageObject.rootOnly();
+
+        expect(expectedRoot.rootOnly).toBeCalled();
+      });
+
+      it("should throw if method not on page object or root", () => {
+        expect(() => pageObject.nonExistentMethod()).toThrow(
+          "Property 'nonExistentMethod' not found on page object or root element"
+        );
+      });
+    });
   });
 
   describe("querySelectorMethod", () => {

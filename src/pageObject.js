@@ -51,6 +51,22 @@ class PageObject {
 
     this[rootQuerySelectorAllMethod] = (...args) =>
       this[querySelectorAllMethod](...args);
+
+    return new Proxy(this, {
+      get(target, prop) {
+        if (prop in target) {
+          return target[prop];
+        }
+
+        if (prop in target.root) {
+          return target.root[prop];
+        }
+
+        throw new Error(
+          `Property '${prop}' not found on page object or root element`
+        );
+      }
+    });
   }
 }
 
