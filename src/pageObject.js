@@ -2,13 +2,6 @@ const querySelectorMethod = Symbol("querySelector");
 const querySelectorAllMethod = Symbol("querySelectorAll");
 
 class PageObject {
-  /**
-   * Base page object implementation
-   * @param {*} driver Webdriver instance
-   * @param {() => any} root Function returning web element reference
-   * @param {string} rootQuerySelectorMethod Method name on web element for querying single elements
-   * @param {string} rootQuerySelectorAllMethod Method name on web element for querying multiple elements
-   */
   constructor(driver, root, rootSelectorMethods = {}) {
     this.driver = driver;
 
